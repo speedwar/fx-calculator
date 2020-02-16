@@ -1,0 +1,73 @@
+// Spacing
+.h-spacing-2x-small {
+  margin-bottom: rem($g-spacing-2x-s);
+}
+
+.h-spacing-x-small {
+  margin-bottom: rem($g-spacing-xs);
+}
+
+.h-spacing-small {
+  margin-bottom: rem($g-spacing-s);
+}
+
+.h-spacing {
+  margin-bottom: rem($g-spacing);
+}
+
+.h-spacing-large {
+  margin-bottom: rem($g-spacing-l);
+}
+
+.h-spacing-x-large {
+  margin-bottom: rem($g-spacing-xl);
+}
+
+.h-spacing-2x-large {
+  margin-bottom: rem($g-spacing-2x-l);
+}
+
+
+// Colours
+.h-color-primary {
+  color: $g-color-primary;
+}
+
+.h-color-success {
+  color: $g-color-success;
+}
+
+// State Helper
+.is-hidden {
+  display: none !important;
+}
+
+.h-no-margin {
+  margin: 0 !important;
+}
+
+/*
+	* 1.
+		@note `clip` is deprecated but works everywhere
+		@see https://developer.mozilla.org/en-US/docs/Web/CSS/clip
+	* 2.
+		@note `clip-path` is the future-proof version, but not very well supported yet
+		@see https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path
+		@see http://caniuse.com/#search=clip-path
+		@author Yvain Liechti
+		@see https://twitter.com/ryuran78/status/778943389819604992
+*/
+
+.sr-only {
+  border: 0 !important;
+	clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
+	-webkit-clip-path: inset(50%) !important;
+  clip-path: inset(50%) !important;  /* 2 */
+	height: 1px !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	position: absolute !important;
+	width: 1px !important;
+	white-space: nowrap !important;
+}

@@ -1,0 +1,123 @@
+.fx-calculator {
+  position: absolute;
+  top: 50%;
+  margin-top: rem(-100);
+
+  @include respond-below(md) {
+    position: static;
+    margin: 0;
+    padding: rem($g-spacing-2x-l) 0;
+  }
+
+  .l-grid {
+    @include respond-below(md) {
+      display: block;
+    }
+  }
+
+  .form-group {
+    @include respond-below(md) {
+      margin-right: 0 !important;
+    }
+  }
+}
+
+.fx-header__title {
+  margin-bottom: rem($g-spacing-2x-l);
+  font-weight: $g-font-weight-light;
+}
+
+.fx-header__version-text {
+  font-size: rem($g-font-size-s);
+  margin-left: rem($g-spacing-s);
+  letter-spacing: 1px;
+}
+
+.fx-calculator-form__label {
+  font-weight: $g-font-weight-semibold;
+  margin: rem($g-spacing-s) 0 0 rem($g-spacing-s);
+  text-transform: uppercase;
+
+  position: absolute;
+}
+
+.fx-calculator-form__input {
+  background-color: transparent;
+  border-color: $g-color-border-gray;
+  border-radius: 0;
+  color: $g-color-white;
+  font-size: rem($g-font-size-3x-l);
+  padding: rem(55) rem($g-spacing-s) rem(30) rem($g-spacing-s);
+  width: rem(230);
+
+  @include respond-below(md) {
+    min-width: none;
+    max-width: none;
+    width: 100%;
+  }
+
+  &.disabled {
+    border-color: $g-color-border-gray !important;
+  }
+
+  &:hover {
+    border-color: $g-color-border;
+  }
+  
+  &:focus {
+    background-color: transparent;
+    border-color: $g-color-white;
+    color: $g-color-white;
+  }
+
+  &[readonly] {
+    background-color: transparent;
+  }
+
+  &--code {
+    width: rem(120);
+
+    @include respond-below(md) {
+      width: 100%;
+    }
+  }
+}
+
+
+.fx-calculator-form__btn {
+  background-color: $g-color-primary;
+  border-color: transparent;
+  border-radius: 0;
+  color: $g-color-white;
+  font-size: rem($g-font-size-l);
+  font-weight: $g-font-weight-semibold;
+  margin-bottom: rem($g-spacing);
+  min-width: rem(80);
+
+  &:hover {
+    background-color: $g-color-primary;
+    color: $g-color-white;
+  }
+
+  @include respond-below(md) {
+    height: rem(80);
+    width: rem(180);
+  }
+
+}
+
+.fx-calculator-error__text {
+  font-size: rem($g-font-size-2x-l);
+  font-weight: $g-font-weight-light;
+}
+
+.fx-calculator-error__text__label {
+  display: inline-block;
+  margin-right: rem($g-spacing);
+  width: rem(80);
+}
+
+.fx-calculator-form__input__text {
+  position: absolute;
+  margin-top: rem(-20);
+}
