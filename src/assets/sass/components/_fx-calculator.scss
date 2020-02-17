@@ -1,12 +1,12 @@
 .fx-calculator {
   position: absolute;
   top: 50%;
-  margin-top: rem(-100);
+  margin-top: rem(-200);
 
   @include respond-below(md) {
     position: static;
     margin: 0;
-    padding: rem($g-spacing-2x-l) 0;
+    padding: rem($g-spacing-l) 0 rem($g-spacing-2x-l);
   }
 
   .l-grid {

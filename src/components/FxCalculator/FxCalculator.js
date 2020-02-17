@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { currencyActions } from 'rx/actions'
+import { Input } from 'reactstrap';
 import { formatCurrency, isNumeric } from 'utils'
 
 const FxCalculator = (props) => {
@@ -170,11 +171,14 @@ const FxCalculator = (props) => {
     </div>
   )
 
+  const { currencyRates } = props
+
   return (
     <div className="fx-calculator">
       <h1 className="fx-header__title">
         Currency Calculator 
-        <span className="fx-header__version-text">v0.1</span>
+        <span className="fx-header__version-text">v0.2.1</span>
+        <span className="fx-header__version-text">Developed by Jimmy Lee</span>
       </h1>
       <form className="l-grid" autoComplete="off">
         <div className="form-group mr-2">
@@ -194,39 +198,43 @@ const FxCalculator = (props) => {
         </div>
 
         <div className="form-group mr-4">
-          <label className="fx-calculator-form__label" htmlFor="baseCurrency">
+          <label htmlFor="baseCurrency" className="fx-calculator-form__label">
             From
           </label>
-          <input
-            type="text"
-            id="baseCurrency"
-            className="form-control fx-calculator-form__input fx-calculator-form__input--code"
+          <Input
+            type="select"
             name="baseCurrency"
-            value={ baseCurrency }
-            placeholder="AUD"
-            maxLength="3"
+            id="baseCurrency"
+            // className="form-control fx-calculator-form__input fx-calculator-form__input--code"
+            value={baseCurrency}
             onChange={ handleInputChange }
-            onBlur={ handleInputCurrencyBlur }
-            onFocus={ handleInputAmountFocus }
-          />
+          >
+            {currencyRates && currencyRates.data.map((currency) => (
+              <option key={ currency.base } value={ currency.base }>
+                { currency.base }
+              </option>
+            ))}
+          </Input>
         </div>
 
         <div className="form-group mr-2">
-          <label className="fx-calculator-form__label" htmlFor="termCurrency">
+          <label htmlFor="termCurrency" className="fx-calculator-form__label">
             To
           </label>
-          <input
-            type="text"
-            id="termCurrency"
-            className="form-control fx-calculator-form__input fx-calculator-form__input--code"
+          <Input
+            type="select"
             name="termCurrency"
+            id="termCurrency"
+            // className="form-control fx-calculator-form__input fx-calculator-form__input--code"
             value={ termCurrency }
-            placeholder="USD"
-            maxLength="3"
-            onChange={ handleInputChange }
-            onBlur={ handleInputCurrencyBlur }
-            onFocus={ handleInputAmountFocus }
-          />
+            onChange={handleInputChange}
+          >
+            {currencyRates && currencyRates.data.map((currency) => (
+              <option key={currency.base} value={currency.base}>
+                {currency.base}
+              </option>
+            ))}
+          </Input>
         </div>
 
         <div className="form-group mr-2">
@@ -242,7 +250,6 @@ const FxCalculator = (props) => {
           type="button"
           className="btn fx-calculator-form__btn"
           onClick={ currencyCalculateEvent }
-          disabled={ baseCurrencyAmount === '' || baseCurrency === '' || termCurrency === '' }
         >
           Go
         </button>

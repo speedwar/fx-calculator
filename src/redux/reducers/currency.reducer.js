@@ -4,7 +4,7 @@ const initialState = {
   isCurrencyRatesRequest: false,
   isCurrencyRatesSuccess: false,
   isCurrencyRatesFailure: false,
-  currencyRates: {},
+  currencyRates: null,
   currencyRatesError: ''
 }
 
