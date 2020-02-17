@@ -1,1 +1,1 @@
-export * from './feed.constants'
+export * from './currency.constants'

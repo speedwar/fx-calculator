@@ -1,14 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { currencyActions } from 'rx/actions'
 import { formatCurrency, isNumeric } from 'utils'
-import currencyRate from 'utils/mockdata/currencyData'
 
-const FxCalculator = () => {
+const FxCalculator = (props) => {
   const
     [ baseCurrencyAmount, setBaseCurrencyAmount ] = useState(''),
     [ baseCurrency, setBaseCurrency ] = useState(''),
     [ termCurrency, setTermCurrency ] = useState(''),
     [ result, setResult ] = useState(''),
     [ hasError, setHasError ] = useState(false)
+
+  // load currency rates on DOMcontentLoad is ready
+  useEffect(() => {
+    const { dispatch } = props
+    dispatch(currencyActions.getCurrency())
+  }, [])
 
   const handleInputChange = (e) => {
     const target = e.target,
@@ -76,7 +83,8 @@ const FxCalculator = () => {
 
   const currencyCalculateEvent = (e) => {
     e.preventDefault() // prevents page refresh
-    const [ selectedCurrency ] = currencyRate.data.filter(curr => curr.base === baseCurrency)
+    const { currencyRates } = props 
+    const [ selectedCurrency ] = currencyRates.data.filter(curr => curr.base === baseCurrency)
 
     if (!selectedCurrency) {
       setHasError(true)
@@ -103,7 +111,7 @@ const FxCalculator = () => {
 
     switch(getRate) {
       case 'Inv':
-        const [ invCurremcy ] = currencyRate.data.filter(curr => curr.base === termCurrency)
+        const [invCurremcy] = currencyRates.data.filter(curr => curr.base === termCurrency)
         const ratesInv = new Map(Object.entries(invCurremcy.rates))
         const getInvRate = ratesInv.get(baseCurrency)
 
@@ -115,7 +123,7 @@ const FxCalculator = () => {
         resultString = formatCurrency(result, 2).toString()
         break
       case 'USD':
-        const [ currencyUSD ] = currencyRate.data.filter(curr => curr.base === 'USD'),
+        const [currencyUSD] = currencyRates.data.filter(curr => curr.base === 'USD'),
           ratesUSD = new Map(Object.entries(currencyUSD.rates)),
           rateUSD = ratesUSD.get(termCurrency)
 
@@ -124,7 +132,7 @@ const FxCalculator = () => {
         resultString = formatCurrency(result, 2).toString()
         break
       case 'EUR':
-        const [ currencyEUR ] = currencyRate.data.filter(curr => curr.base === 'EUREUR'),
+        const [currencyEUR] = currencyRates.data.filter(curr => curr.base === 'EUREUR'),
           ratesEUR = new Map(Object.entries(currencyEUR.rates)),
           rateEUR = ratesEUR.get(termCurrency)
 
@@ -145,18 +153,18 @@ const FxCalculator = () => {
       <div>
         <span className="fx-calculator-error__text">
           <span className="fx-calculator-error__text__label">From:</span>
-          {baseCurrency} {baseCurrencyAmount}
+          { baseCurrency } { baseCurrencyAmount }
         </span>
       </div>
       <div>
         <span className="fx-calculator-error__text">
           <span className="fx-calculator-error__text__label">To:</span>
-          {termCurrency}
+          { termCurrency }
         </span>
       </div>
       <div>
         <span className="fx-calculator-error__text">
-          Unable to find rate for {baseCurrency} / {termCurrency}
+          Unable to find rate for { baseCurrency } / { termCurrency }
         </span>
       </div>
     </div>
@@ -244,4 +252,21 @@ const FxCalculator = () => {
   )
 }
 
-export default FxCalculator
+function mapStateToProps(state) {
+  const {
+    isCurrencyRatesRequest,
+    isCurrencyRatesSuccess,
+    isCurrencyRatesFailure,
+    currencyRates,
+    currencyRatesError
+  } = state.currency
+  return {
+    isCurrencyRatesRequest,
+    isCurrencyRatesSuccess,
+    isCurrencyRatesFailure,
+    currencyRates,
+    currencyRatesError
+  }
+}
+
+export default connect(mapStateToProps)(FxCalculator)

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import { feed } from './feed.reducer'
+import { currency } from './currency.reducer'
 
 const rootReducer = combineReducers({
-  feed
+  currency
 })
 
 export default rootReducer

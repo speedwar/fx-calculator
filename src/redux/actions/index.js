@@ -1,1 +1,1 @@
-export * from './feed.actions'
+export * from './currency.actions'
