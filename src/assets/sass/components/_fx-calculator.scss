@@ -1,11 +1,9 @@
 .fx-calculator {
-  position: absolute;
-  top: 50%;
-  margin-top: rem(-200);
+  margin-top: rem(200);
 
   @include respond-below(md) {
-    position: static;
-    margin: 0;
+    margin-top: rem(20);
+
     padding: rem($g-spacing-l) 0 rem($g-spacing-2x-l);
   }
 
@@ -49,6 +47,7 @@
   font-size: rem($g-font-size-3x-l);
   padding: rem(55) rem($g-spacing-s) rem(30) rem($g-spacing-s);
   width: rem(230);
+  height: rem(87);
 
   @include respond-below(md) {
     min-width: none;
@@ -75,14 +74,25 @@
   }
 
   &--code {
+    padding: rem(25) 0 0 rem(6);
     width: rem(120);
 
     @include respond-below(md) {
       width: 100%;
     }
+
+    > option {
+      background-color: $g-bg-color-primary;
+      font-size: rem($g-font-size-l);
+    }
+  }
+
+  &--empty {
+    @include respond-below(md) {
+      display: none;
+    }
   }
 }
-
 
 .fx-calculator-form__btn {
   background-color: $g-color-primary;
@@ -92,7 +102,7 @@
   font-size: rem($g-font-size-l);
   font-weight: $g-font-weight-semibold;
   margin-bottom: rem($g-spacing);
-  min-width: rem(80);
+  min-width: rem(100);
 
   &:hover {
     background-color: $g-color-primary;

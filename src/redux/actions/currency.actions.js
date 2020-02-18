@@ -25,7 +25,7 @@ function getCurrency() {
     //   .catch((error) => {
     //     dispatch(failure(error));
     //   });
-  };
+  }
 
   function request(data) {
     return { type: currencyConstants.CURRENCY_REQUEST, data }

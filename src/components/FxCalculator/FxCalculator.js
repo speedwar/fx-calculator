@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { currencyActions } from 'rx/actions'
-import { Input } from 'reactstrap';
+import { Input, Fade } from 'reactstrap'
 import { formatCurrency, isNumeric } from 'utils'
 
 const FxCalculator = (props) => {
@@ -12,7 +12,7 @@ const FxCalculator = (props) => {
     [ result, setResult ] = useState(''),
     [ hasError, setHasError ] = useState(false)
 
-  // load currency rates on DOMcontentLoad is ready
+  // load currency rates onLoad
   useEffect(() => {
     const { dispatch } = props
     dispatch(currencyActions.getCurrency())
@@ -45,34 +45,6 @@ const FxCalculator = (props) => {
     if (isNumeric(value)) {
       const formatDollars = formatCurrency(value, 2)
       setBaseCurrencyAmount(formatDollars)
-    }
-  }
-
-  const handleInputCurrencyBlur = (e) => {
-    const target = e.target,
-      value = target.value,
-      name = target.name
-    let stringValidation 
-
-    switch (name) {
-      case 'baseCurrency':
-        if (isNumeric(value)) {
-          setBaseCurrency('')
-        } else {
-          stringValidation = value.toUpperCase()
-          setBaseCurrency(stringValidation)
-        }
-        break
-      case 'termCurrency':
-        if (isNumeric(value)) {
-          setTermCurrency('')
-        } else {
-          stringValidation = value.toUpperCase()
-          setTermCurrency(stringValidation)
-        }
-        break
-      default:
-        break
     }
   }
 
@@ -150,25 +122,27 @@ const FxCalculator = (props) => {
   }
 
   const errorContainer = (
-    <div className="fx-calculator-error">
-      <div>
-        <span className="fx-calculator-error__text">
-          <span className="fx-calculator-error__text__label">From:</span>
-          { baseCurrency } { baseCurrencyAmount }
-        </span>
+    <Fade in={ hasError } className="mt-3">
+      <div className="fx-calculator-error">
+        <div>
+          <span className="fx-calculator-error__text">
+            <span className="fx-calculator-error__text__label">From:</span>
+            { baseCurrency } { baseCurrencyAmount }
+          </span>
+        </div>
+        <div>
+          <span className="fx-calculator-error__text">
+            <span className="fx-calculator-error__text__label">To:</span>
+            { termCurrency }
+          </span>
+        </div>
+        <div>
+          <span className="fx-calculator-error__text">
+            Unable to find rate for { baseCurrency } / { termCurrency }
+          </span>
+        </div>
       </div>
-      <div>
-        <span className="fx-calculator-error__text">
-          <span className="fx-calculator-error__text__label">To:</span>
-          { termCurrency }
-        </span>
-      </div>
-      <div>
-        <span className="fx-calculator-error__text">
-          Unable to find rate for { baseCurrency } / { termCurrency }
-        </span>
-      </div>
-    </div>
+    </Fade>
   )
 
   const { currencyRates } = props
@@ -177,84 +151,99 @@ const FxCalculator = (props) => {
     <div className="fx-calculator">
       <h1 className="fx-header__title">
         Currency Calculator 
-        <span className="fx-header__version-text">v0.2.1</span>
+        <span className="fx-header__version-text">v0.3.0</span>
         <span className="fx-header__version-text">Developed by Jimmy Lee</span>
       </h1>
-      <form className="l-grid" autoComplete="off">
-        <div className="form-group mr-2">
-          <label className="fx-calculator-form__label" htmlFor="baseCurrencyAmount">
-            Amount
-          </label>
-          <input
-            type="number"
-            id="baseCurrencyAmount"
-            className="form-control fx-calculator-form__input"
-            name="baseCurrencyAmount"
-            value={ baseCurrencyAmount }
-            onChange={ handleInputChange }
-            onBlur={ handleInputAmountBlur }
-            onFocus={ handleInputAmountFocus }
-          />
-        </div>
+      <form className="fx-calculator__form" autoComplete="off">
+        <div className="l-grid">
+          <div className="form-group mr-2">
+            <label className="fx-calculator-form__label" htmlFor="baseCurrencyAmount">
+              Amount
+            </label>
+            <input
+              type="number"
+              id="baseCurrencyAmount"
+              className="form-control fx-calculator-form__input"
+              name="baseCurrencyAmount"
+              value={baseCurrencyAmount}
+              onChange={handleInputChange}
+              onBlur={handleInputAmountBlur}
+              onFocus={handleInputAmountFocus}
+            />
+          </div>
 
-        <div className="form-group mr-4">
-          <label htmlFor="baseCurrency" className="fx-calculator-form__label">
-            From
-          </label>
-          <Input
-            type="select"
-            name="baseCurrency"
-            id="baseCurrency"
-            // className="form-control fx-calculator-form__input fx-calculator-form__input--code"
-            value={baseCurrency}
-            onChange={ handleInputChange }
-          >
-            {currencyRates && currencyRates.data.map((currency) => (
-              <option key={ currency.base } value={ currency.base }>
-                { currency.base }
-              </option>
-            ))}
-          </Input>
-        </div>
-
-        <div className="form-group mr-2">
-          <label htmlFor="termCurrency" className="fx-calculator-form__label">
-            To
-          </label>
-          <Input
-            type="select"
-            name="termCurrency"
-            id="termCurrency"
-            // className="form-control fx-calculator-form__input fx-calculator-form__input--code"
-            value={ termCurrency }
-            onChange={handleInputChange}
-          >
-            {currencyRates && currencyRates.data.map((currency) => (
-              <option key={currency.base} value={currency.base}>
-                {currency.base}
-              </option>
-            ))}
-          </Input>
-        </div>
-
-        <div className="form-group mr-2">
-          <span className="fx-calculator-form__label">
-            Amount
-          </span>
-          <div className="form-control fx-calculator-form__input disabled">
-            <span className="fx-calculator-form__input__text">{ result }</span>
+          <div className="form-group mr-4">
+            <label htmlFor="baseCurrency" className="fx-calculator-form__label">
+              From
+            </label>
+            <Input
+              type="select"
+              name="baseCurrency"
+              id="baseCurrency"
+              className="fx-calculator-form__input fx-calculator-form__input--code"
+              value={baseCurrency}
+              placeholder='asd'
+              onChange={handleInputChange}
+            >
+              {currencyRates && currencyRates.data.map((currency) => (
+                <option key={currency.base} value={currency.base}>
+                  {currency.base}
+                </option>
+              ))}
+            </Input>
           </div>
         </div>
 
-        <button 
-          type="button"
-          className="btn fx-calculator-form__btn"
-          onClick={ currencyCalculateEvent }
-        >
-          Go
-        </button>
+        <div className="l-grid">
+          <div className="l-grid__item">
+            <div className="fx-calculator-form__input fx-calculator-form__input--empty mr-2" />
+          </div>
+          <div className="form-group mr-2">
+            <label htmlFor="termCurrency" className="fx-calculator-form__label">
+              To
+            </label>
+            <Input
+              type="select"
+              name="termCurrency"
+              id="termCurrency"
+              className="fx-calculator-form__input fx-calculator-form__input--code"
+              value={termCurrency}
+              onChange={handleInputChange}
+            >
+              {currencyRates && currencyRates.data.map((currency) => (
+                <option key={currency.base} value={currency.base}>
+                  {currency.base}
+                </option>
+              ))}
+            </Input>
+          </div>
+
+          <div className="form-group mr-2">
+            <span className="fx-calculator-form__label">
+              Amount
+            </span>
+            <div className="form-control fx-calculator-form__input disabled">
+              <span className="fx-calculator-form__input__text">{result}</span>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className="btn fx-calculator-form__btn"
+            onClick={currencyCalculateEvent}
+          >
+            Convert
+          </button>
+
+        </div>
+        <div className="l-grid">
+          <div className="l-grid__item">
+            <div className="fx-calculator-form__input fx-calculator-form__input--empty mr-2" />
+          </div>
+          {errorContainer}
+        </div>
+
       </form>
-      { hasError && errorContainer }
     </div>
   )
 }
