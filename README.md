@@ -1,15 +1,15 @@
 
 # FX Calculator
 
-Currency Calculator with Reactjs / Redux
-FX Calculator repository will be hidden after 26th Feb 2020.
+Currency Calculator with Reactjs / Redux.
+Test currency rate will be replaced with OpenRate API after 26th Feb 2020.
 
 ## Demo site
 
-**Netlify** is used for automating CI/CD.
+**Netlify** is used for automating CI/CD for this side project.
 > [https://infallible-poincare-283125.netlify.com](https://infallible-poincare-283125.netlify.com)
 
-## Package managers
+## Nodejs
 Ensure you have node / npm installed in your local environment.
 If you are experiencing a difficulty to install with package manager, please switch to below versions.
 
@@ -22,7 +22,8 @@ Version
 - [x] AUD/USD
 - [x] USD/JPY
 - [x] NOK/USD
-- [x] KRW/USD Error
+- [x] KRW/USD - No rate
+- [] USD cross inverse convertion
 
 ## Available Scripts
 
