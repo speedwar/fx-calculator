@@ -250,6 +250,7 @@ const FxCalculator = ({ currencyRates, currencyStore, currencyTDP, dispatch }) =
             type="button"
             className="btn fx-calculator-form__btn"
             onClick={currencyCalculateEvent}
+            disabled={!baseCurrencyAmount || !baseCurrency || !termCurrency}
           >
             Convert
           </button>

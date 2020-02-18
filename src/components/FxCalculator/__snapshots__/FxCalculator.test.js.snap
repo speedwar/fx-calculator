@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FxCalculator /> component renders component with snapshot 1`] = `
+Object {
+  "props": Object {
+    "currencyStore": Object {
+      "baseCurrency": "AUD",
+      "baseCurrencyAmount": 10,
+      "termCurrency": "USD",
+    },
+  },
+  "wrapper": <Connect(FxCalculator)
+    currencyStore={
+      Object {
+        "baseCurrency": "AUD",
+        "baseCurrencyAmount": 10,
+        "termCurrency": "USD",
+      }
+    }
+  />,
+}
+`;

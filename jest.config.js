@@ -13,6 +13,7 @@ module.exports = {
   moduleNameMapper: {
     "^.+\\.(css|scss|png|jpg|jpeg|gif|svg|pdf)$": "babel-jest",
     "^components(.*)$": "<rootDir>/src/components$1",
+    "^utils(.*)$": "<rootDir>/src/utils$1",
     "^rx(.*)$": "<rootDir>/src/redux$1"
   },
   setupFiles: [
