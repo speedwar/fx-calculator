@@ -17,18 +17,12 @@ Version
 > `node 13.3.0`
 > `npm 6.13.1`
 
-## Versioning
-
-### v0.5.0
-* Added basic jest unit testing
-
-### v0.4.0
-* UI improvement
-* Added error messages for unavailable rates
-
-### v0.3.0
-* Replaced text input field to dropdown field
-
+## Comfirmed test cases
+- [x] AUD/JPY
+- [x] AUD/USD
+- [x] USD/JPY
+- [x] NOK/USD
+- [x] KRW/USD Error
 
 ## Available Scripts
 
@@ -69,3 +63,16 @@ Test must be passed to initialise `npm run build`.
 
 ## Comment
 To be added
+
+## Versioning
+
+### v0.5.0
+* Added basic jest unit testing
+* Added logic for NOK/USD conversion
+
+### v0.4.0
+* UI improvement
+* Added error messages for unavailable rates
+
+### v0.3.0
+* Replaced text input field to dropdown field
