@@ -18,7 +18,6 @@ module.exports = {
       loaders.JSLoader,
       loaders.ESLintLoader,
       loaders.SASSLoader,
-      // loaders.SVGLoader
     ]
   },
   output: {
@@ -44,7 +43,6 @@ module.exports = {
     plugins.HtmlPlugin,
     plugins.StyleLintPlugin,
     plugins.MiniCssExtractPlugin,
-    // plugins.SvgLoaderPlugin,
     plugins.CleanPluginLoader
   ]
 }

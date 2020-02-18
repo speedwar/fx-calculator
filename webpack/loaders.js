@@ -57,32 +57,8 @@ const SASSLoader = {
   ]
 }
 
-// const SVGLoader = {
-//   test: /\.svg$/,
-//   include: path.join(__dirname, './../src/assets/svg'),
-//   use: [
-//     {
-//       loader: 'svg-sprite-loader',
-//       options: {
-//         extract: true,
-//         spriteFilename: 'sprite.svg',
-//         runtimeCompat: true
-//       }
-//     },
-//     {
-//       loader: 'svgo-loader',
-//       options: {
-//         removeTitle: true,
-//         convertColors: { shorthex: false },
-//         convertPathData: false
-//       }
-//     }
-//   ]
-// }
-
 module.exports = {
   JSLoader: JSLoader,
   ESLintLoader: ESLintLoader,
   SASSLoader: SASSLoader,
-  // SVGLoader: SVGLoader
 }

@@ -2,7 +2,6 @@ const path = require('path')
 const _MiniCssExtractPlugin  = require('mini-css-extract-plugin')
 const _StyleLintPlugin       = require('stylelint-webpack-plugin')
 const _HtmlWebPackPlugin     = require('html-webpack-plugin')
-// const _SvgLoaderPlugin       = require('svg-sprite-loader')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const isDevelopment = process.env.NODE_ENV === 'development'
@@ -29,10 +28,6 @@ const StyleLintPlugin = new _StyleLintPlugin({
   quiet: false,
 })
 
-// const SvgLoaderPlugin = new _SvgLoaderPlugin({
-//   plainSprite: true
-// });
-
 const CleanPluginLoader = new CleanWebpackPlugin({
   // you can add options here
 })
@@ -41,6 +36,5 @@ module.exports = {
   HtmlPlugin: HtmlPlugin,
   MiniCssExtractPlugin: MiniCssExtractPlugin,
   StyleLintPlugin: StyleLintPlugin,
-  // SvgLoaderPlugin: SvgLoaderPlugin,
   CleanPluginLoader: CleanPluginLoader
 }

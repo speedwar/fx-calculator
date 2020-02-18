@@ -2,7 +2,8 @@ import { currencyConstants } from 'rx/constants'
 import currencyRates from 'utils/mockdata/currencyRates'
 
 export const currencyActions = {
-  getCurrency
+  getCurrency,
+  storeCurrency,
 }
 
 /**
@@ -36,4 +37,14 @@ function getCurrency() {
   // function failure(error) {
   //   return { type: demoConstants.CURRENCY_FAILURE, error }
   // }
+}
+
+function storeCurrency(data) {
+  return (dispatch) => {
+    dispatch(success(data))
+  }
+
+  function success(data) {
+    return { type: currencyConstants.STORE_CURRENCY_SUCCESS, data }
+  }
 }

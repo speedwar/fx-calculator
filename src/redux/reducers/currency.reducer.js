@@ -5,7 +5,25 @@ const initialState = {
   isCurrencyRatesSuccess: false,
   isCurrencyRatesFailure: false,
   currencyRates: null,
-  currencyRatesError: ''
+  currencyRatesError: {},
+  currencyStore: {
+    baseCurrencyAmount: null,
+    baseCurrency: null,
+    termCurrency: null,
+  },
+  currencyTDP: [ // Two decimal places currency
+    'AUD',
+    'CAD',
+    'CNY',
+    'CZK',
+    'DKK',
+    'EUR',
+    'GBP',
+    'JPY',
+    'NOK',
+    'NZD',
+    'USD',
+  ]
 }
 
 export function currency(state = initialState, action) {
@@ -28,7 +46,14 @@ export function currency(state = initialState, action) {
       return {
         ...state,
         isCurrencyRatesFailure: true,
-        currencyRatesError: action.error
+        currencyRatesError: action.error,
+      }
+ 
+    // `convert` button event
+    case currencyConstants.STORE_CURRENCY_SUCCESS:
+      return {
+        ...state,
+        currencyStore: action.data,
       }
     default:
       return state

@@ -46,7 +46,7 @@
   color: $g-color-white;
   font-size: rem($g-font-size-3x-l);
   padding: rem(55) rem($g-spacing-s) rem(30) rem($g-spacing-s);
-  width: rem(230);
+  width: rem(300);
   height: rem(87);
 
   @include respond-below(md) {
@@ -74,6 +74,7 @@
   }
 
   &--code {
+    cursor: pointer;
     padding: rem(25) 0 0 rem(6);
     width: rem(120);
 
